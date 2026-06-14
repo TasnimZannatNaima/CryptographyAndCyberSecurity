@@ -54,12 +54,10 @@
 ## 📂 Project Structure
 CryptographyAndCyberSecurity/
 ├── ciphervault/
-│ ├── index.html # Main application
-│ ├── style.css # Styling & animations
-│ └── script.js # Cipher algorithms
-├── eucidean_algorithm.py
-├── extended_eucidean_algorithm.py
-└── README.md
+  ├── index.html # Main application
+  ├── style.css # Styling & animations
+  ├── script.js # Cipher algorithms
+  └── README.md
 
 ---
 
