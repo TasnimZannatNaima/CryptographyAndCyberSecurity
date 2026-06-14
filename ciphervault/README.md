@@ -49,14 +49,17 @@
 | JavaScript | Cipher algorithms, DOM manipulation |
 | Google Fonts | Space Grotesk & Space Mono |
 
+---
+
 ## 📂 Project Structure
 CryptographyAndCyberSecurity/
 ├── ciphervault/
 │ ├── index.html # Main application
 │ ├── style.css # Styling & animations
-  └── script.js # Cipher algorithms
-  └──README.md
-
+│ └── script.js # Cipher algorithms
+├── eucidean_algorithm.py
+├── extended_eucidean_algorithm.py
+└── README.md
 
 ---
 
