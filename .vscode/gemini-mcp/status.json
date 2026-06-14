@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "updatedAt": 1781452968356,
+=======
+  "updatedAt": 1777996009296,
+>>>>>>> 24baa448b43d203b41121ea515fbd101b4d820a8
   "running": 0,
   "queued": 0,
   "maxWorkers": 3,
@@ -8,7 +12,11 @@
     "state": "ok",
     "message": "Gemini CLI available (0.24.0)",
     "version": "0.24.0",
+<<<<<<< HEAD
     "lastChecked": 1781452968085,
+=======
+    "lastChecked": 1777996009026,
+>>>>>>> 24baa448b43d203b41121ea515fbd101b4d820a8
     "mode": "cli"
   },
   "tasks": []
