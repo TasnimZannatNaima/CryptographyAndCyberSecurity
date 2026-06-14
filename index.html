@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>CipherVault · Classical Cryptography Lab(Naima)</title>
+  <!-- Google Fonts: clean modern monospace & sans -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">Cipher<span>Vault</span></a>
+    <div class="nav-links">
+      <a href="#theory" class="active">Theory</a>
+      <a href="#classification">Classification</a>
+      <a href="#lab">Lab</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">CRYPTOGRAPHY CLASSROOM</div>
+    <h1>The Art of<br><span class="line2">Secret Writing</span></h1>
+    <p>Explore Monoalphabetic substitution, Playfair digraphs, and Hill matrix ciphers. Test encryption live.</p>
+    <div class="btn-row">
+      <a href="#theory" class="btn btn-primary">Start Learning</a>
+      <a href="#lab" class="btn btn-outline">Open the Lab ↓</a>
+    </div>
+  </div>
+</section>
+
+<!-- THEORY SECTION -->
+<section id="theory" class="reveal">
+  <h2 class="section-title">Cipher theory</h2>
+  <div class="section-desc">Mathematical foundations & historical mechanics</div>
+  <div class="theory-tabs">
+    <button class="theory-tab active" onclick="showTheory('intro')">Introduction</button>
+    <button class="theory-tab" onclick="showTheory('mono')">Monoalphabetic</button>
+    <button class="theory-tab" onclick="showTheory('playfair')">Playfair</button>
+    <button class="theory-tab" onclick="showTheory('hill')">Hill Cipher</button>
+  </div>
+  <div class="theory-panel active" id="th-intro">
+    <div class="theory-card"><span class="tag tag-classic">Core concepts</span>
+      <h3 style="margin-bottom: 12px;">Classical encryption principles</h3>
+      <p>Classical ciphers operate on letters without computers. Substitution (mapping letters) and transposition (rearranging) are the pillars. <strong>Monoalphabetic</strong> replaces each letter with a fixed substitute. <strong>Playfair</strong> encrypts digraphs to hide frequency. <strong>Hill</strong> uses linear algebra (matrix multiplication mod 26).</p>
+      <div class="code-block">Encryption strength: Kerckhoffs's principle — only key secrecy matters.</div>
+    </div>
+  </div>
+  <div class="theory-panel" id="th-mono">
+    <div class="theory-card"><span class="tag tag-classic">Monoalphabetic</span>
+      <h3>Substitution cipher · 1:1 mapping</h3>
+      <p>Each plaintext letter maps to a unique ciphertext letter. The key is a full permutation of the alphabet. Example: A→M, B→N,... (ROT13 is a special case).</p>
+      <div class="code-block">Plain:  HELLO WORLD<br>Cipher: IFMMP XPSME (shift +1)</div>
+    </div>
+  </div>
+  <div class="theory-panel" id="th-playfair">
+    <div class="theory-card"><span class="tag tag-poly">Polygraphic · Playfair</span>
+      <h3>Digraph substitution (5×5 grid)</h3>
+      <p>Uses a keyword to fill a 5x5 square (I/J merged). Encrypts pairs: same row → shift right; same column → shift down; rectangle → swap corners.</p>
+      <div class="code-block">Keyword: MONARCHY → grid built, "HE" → "EC" etc.</div>
+    </div>
+  </div>
+  <div class="theory-panel" id="th-hill">
+    <div class="theory-card"><span class="tag tag-linear">Linear algebra · Hill</span>
+      <h3>2×2 matrix encryption mod 26</h3>
+      <p>Plaintext vector [p1,p2] × key matrix K = cipher vector. Decryption uses inverse matrix K⁻¹, exists iff det(K) is coprime to 26.</p>
+      <div class="code-block">K = [[3,3],[2,5]] , det=9 → invertible.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CLASSIFICATION -->
+<section id="classification" class="reveal">
+  <h2 class="section-title">Cipher taxonomy</h2>
+  <div class="class-grid">
+    <div class="class-card"><strong>🔁 Monoalphabetic</strong><br>Caesar, Atbash, Keyword substitution. Weakness: frequency analysis.</div>
+    <div class="class-card"><strong>📐 Polygraphic</strong><br>Playfair (digraph), Hill (matrix). Resists single-letter frequencies.</div>
+    <div class="class-card"><strong>⚙️ Polyalphabetic</strong><br>Vigenère (not implemented here but core family).</div>
+  </div>
+</section>
+
+<!-- LAB: TEST SYSTEM -->
+<section id="lab" class="reveal">
+  <h2 class="section-title">cipher lab</h2>
+  <div class="lab-tabs">
+    <button class="lab-tab active" onclick="showLab('mono')">🔤 Monoalphabetic</button>
+    <button class="lab-tab" onclick="showLab('playfair')">🔷 Playfair</button>
+    <button class="lab-tab" onclick="showLab('hill')">🧮 Hill Cipher</button>
+  </div>
+  <!-- Monoalphabetic Panel -->
+  <div class="lab-panel active" id="lab-mono">
+    <div class="lab-grid">
+      <div><label>🔑 Keyword → full substitution</label><input type="text" id="mono-keyword" placeholder="Keyword (e.g., MONARCHY)" value="MONARCHY"><button class="btn" style="margin-top:6px;" onclick="monoFromKeyword()">Generate from keyword</button> <button class="btn" onclick="monoRandomKey()">🎲 Random key</button>
+      <div><label>Substitution key (26 letters):</label><input type="text" id="mono-key" placeholder="26 unique letters" value="MONARCHYBDFEGIJKLPQSTUVWXZ"></div>
+      <div class="mono-alpha-row" id="mono-plain-row"></div><div class="mono-alpha-row" id="mono-cipher-row"></div>
+      <div class="error-text" id="mono-err"></div></div>
+      <div><label>📝 Plaintext / Ciphertext</label><textarea id="mono-input" rows="3" placeholder="Enter message...">HELLO WORLD</textarea>
+      <div class="btn-group"><button class="btn btn-encrypt" onclick="monoRun('enc')">Encrypt</button><button class="btn btn-decrypt" onclick="monoRun('dec')">Decrypt</button><button class="btn btn-clear" onclick="clearMono()">Clear</button></div>
+      <div><strong>Result</strong><div class="result-box" id="mono-output">—</div></div>
+      <div><strong>Step log</strong><div class="steps-box" id="mono-steps"></div></div></div>
+    </div>
+  </div>
+
+  <!-- Playfair Panel -->
+  <div class="lab-panel" id="lab-playfair">
+    <div class="lab-grid">
+      <div><label>🗝️ Playfair keyword</label><input type="text" id="pf-key" placeholder="Keyword (I/J merged)" value="MONARCHY"><button class="btn" style="margin-top:6px;" onclick="pfUpdate()">Build square</button><div class="code-block" id="pf-square" style="margin-top:12px;">Grid will appear</div><div class="error-text" id="pf-err"></div></div>
+      <div><label>📄 Message</label><textarea id="pf-input" rows="3">HELLO WORLD</textarea><div class="btn-group"><button class="btn btn-encrypt" onclick="pfRun('enc')">Encrypt</button><button class="btn btn-decrypt" onclick="pfRun('dec')">Decrypt</button><button class="btn btn-clear" onclick="clearPf()">Clear</button></div><div><strong>Output</strong><div class="result-box" id="pf-output">—</div></div><div><strong>Steps (digraph rules)</strong><div class="steps-box" id="pf-steps"></div></div></div>
+    </div>
+  </div>
+
+  <!-- Hill Cipher Panel -->
+  <div class="lab-panel" id="lab-hill">
+    <div class="lab-grid">
+      <div><label>🔢 2x2 Key Matrix (mod 26)</label><div class="key-matrix"><input type="number" id="h00" value="3" step="1"> <input type="number" id="h01" value="3"><br><input type="number" id="h10" value="2" step="1"> <input type="number" id="h11" value="5"></div><button class="btn" onclick="hillRandom()">🎲 Random valid key</button><div class="error-text" id="hill-err"></div><div class="code-block" style="margin-top:12px;" id="hill-info">Determinant preview</div></div>
+      <div><label>✉️ Text (A-Z only)</label><textarea id="hill-input" rows="3">HELLO</textarea><div class="btn-group"><button class="btn btn-encrypt" onclick="hillRun('enc')">Encrypt</button><button class="btn btn-decrypt" onclick="hillRun('dec')">Decrypt</button><button class="btn btn-clear" onclick="clearHill()">Clear</button></div><div><strong>Cipher / Plain</strong><div class="result-box" id="hill-output">—</div></div><div><strong>Matrix steps</strong><div class="steps-box" id="hill-steps"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<footer><span>CipherVault — classical cryptography lab | modular arithmetic & historical ciphers (editor:Tasnim Zannat Naima)</span></footer>
+
+<script src="script.js"></script>
+</body>
+</html>
